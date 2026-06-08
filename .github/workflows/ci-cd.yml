@@ -65,7 +65,7 @@ jobs:
 
       - name: Update image tag in kustomization
         run: |
-          cd gitops/k8s
+          cd gitops
           kustomize edit set image ${{ secrets.DOCKERHUB_USERNAME }}/registro-atividades-backend=${{ secrets.DOCKERHUB_USERNAME }}/registro-atividades-backend:${{ needs.build-and-push.outputs.image_tag }}
 
       - name: Commit and push
