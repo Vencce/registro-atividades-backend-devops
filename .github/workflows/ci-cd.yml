@@ -71,8 +71,8 @@ jobs:
           cd gitops
           kustomize edit set image ${{ secrets.DOCKERHUB_USERNAME }}/registro-atividades-backend=${{ secrets.DOCKERHUB_USERNAME }}/registro-atividades-backend:${{ needs.build-and-push.outputs.image_tag }}
 
-          name: Commit and push
-        run: |
+      - name: Commit and push
+            run: |
           cd gitops
           git config user.name "github-actions"
           git config user.email "github-actions@users.noreply.github.com"
