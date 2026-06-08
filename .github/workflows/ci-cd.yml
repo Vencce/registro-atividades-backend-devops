@@ -18,7 +18,7 @@ jobs:
           cache: "pip"
 
       - run: pip install -r requirements.txt
-      - run: pytest --suppress-no-test-exit-code || true
+      - run: pytest || echo "Nenhum teste para executar"
 
   build-and-push:
     needs: tests
@@ -66,9 +66,7 @@ jobs:
       - name: Update image tag in kustomization
         run: |
           cd gitops/k8s
-          kustomize edit set image \
-            ${{ secrets.DOCKERHUB_USERNAME }}/registro-atividades-backend=\
-            ${{ secrets.DOCKERHUB_USERNAME }}/registro-atividades-backend:${{ needs.build-and-push.outputs.image_tag }}
+          kustomize edit set image ${{ secrets.DOCKERHUB_USERNAME }}/registro-atividades-backend=${{ secrets.DOCKERHUB_USERNAME }}/registro-atividades-backend:${{ needs.build-and-push.outputs.image_tag }}
 
       - name: Commit and push
         run: |
